@@ -12,3 +12,8 @@ variable "instance_type" {
   type = string
   default = "t2.micro"
 }
+
+variable "allowed_ports" {
+  type = list(number)
+  default = [22, 80, 443]
+}
