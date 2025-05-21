@@ -32,11 +32,3 @@ resource "aws_internet_gateway" "main_igw" {
     Name = "main"
   }
 }
-
-output "vpc_cidr" {
-  value = var.vpc_cidr
-}
-
-output "subnet_cidr" {
-  value = var.subnet_cidr
-}
