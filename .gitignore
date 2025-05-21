@@ -1,2 +1,8 @@
 # secrets
 secrets.env
+
+# terraform files
+.terraform/
+.terraform*
+terraform.tfvars
+terraform.tfstate*
