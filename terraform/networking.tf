@@ -18,9 +18,9 @@ resource "aws_security_group" "allow_ingress" {
     for_each = var.allowed_ports
     iterator = port
     content {
-      protocol = "tcp"
+      protocol  = "tcp"
       from_port = port.value
-      to_port = port.value
+      to_port   = port.value
     }
   }
 }
