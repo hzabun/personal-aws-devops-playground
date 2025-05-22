@@ -13,7 +13,8 @@ resource "aws_instance" "flask_instances" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.allow_ingress.id]
-  # security_groups = [aws_security_group.allow_http_and_https.name]
+  associate_public_ip_address = true
+  key_name = aws_key_pair.kp.key_name
   count = var.num_instances
 
   tags = merge(local.tags, {
@@ -27,10 +28,9 @@ resource "tls_private_key" "pk" {
 }
 
 resource "aws_key_pair" "kp" {
-  key_name   = "sample_key"
+  key_name   = "flask_app_key"
   public_key = tls_private_key.pk.public_key_openssh
 }
-
 resource "local_file" "ssh_key" {
   filename = "${aws_key_pair.kp.key_name}.pem"
   content = tls_private_key.pk.private_key_pem
