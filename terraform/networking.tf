@@ -11,6 +11,24 @@ resource "aws_subnet" "public_subnet" {
   })
 }
 
+resource "aws_route_table" "main" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main_igw.id
+  }
+
+  tags = merge(local.tags, {
+    Name = "public-rt"
+  })
+}
+
+resource "aws_route_table_association" "public_assoc" {
+  subnet_id = aws_subnet.public_subnet.id
+  route_table_id = aws_route_table.main.id
+}
+
 resource "aws_security_group" "allow_ingress" {
   vpc_id = aws_vpc.main.id
   tags   = local.tags
@@ -18,6 +36,7 @@ resource "aws_security_group" "allow_ingress" {
     for_each = var.allowed_ports
     iterator = port
     content {
+      cidr_blocks = ["0.0.0.0/0"]
       protocol  = "tcp"
       from_port = port.value
       to_port   = port.value
