@@ -23,7 +23,7 @@ resource "aws_instance" "flask_instances" {
 }
 
 resource "tls_private_key" "pk" {
-  algorithm = "RSA"
+  algorithm = "ED25519"
   rsa_bits  = 4096
 }
 
