@@ -22,17 +22,7 @@ resource "aws_instance" "flask_instances" {
   })
 }
 
-resource "tls_private_key" "pk" {
-  algorithm = "ED25519"
-  rsa_bits  = 4096
-}
-
 resource "aws_key_pair" "kp" {
   key_name   = "flask_app_key"
-  public_key = tls_private_key.pk.public_key_openssh
-}
-resource "local_file" "ssh_key" {
-  filename = "${aws_key_pair.kp.key_name}.pem"
-  content = tls_private_key.pk.private_key_pem
-  file_permission = "0400"
+  public_key = file("${path.module}/../ssh-keys/ec2-key.pub")
 }

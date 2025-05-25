@@ -1,6 +1,7 @@
 # secrets
 secrets.env
 *.pem
+ssh-keys/
 
 # terraform files
 .terraform/
