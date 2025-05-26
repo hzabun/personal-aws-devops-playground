@@ -1,2 +1,2 @@
-sudo yum update
-sudo amazon-linux-extras install ansible2
+sudo dnf update -y
+sudo dnf install ansible -y
