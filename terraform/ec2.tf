@@ -16,9 +16,9 @@ resource "aws_instance" "flask_instances" {
   associate_public_ip_address = true
   key_name                    = aws_key_pair.kp.key_name
   count                       = var.num_instances
-
+  user_data = count.index == 0 ? file("${path.module}/scripts/user_data.sh") : null
   tags = merge(local.tags, {
-    name = "flask_instance"
+    Name = "flask_instance"
   })
 }
 
