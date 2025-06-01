@@ -1,0 +1,11 @@
+---
+- name: Installing Docker daemon and running flask container
+  hosts: myflask
+  become: True
+  tasks:
+    - name: Install Docker daemon
+      command: dnf install docker -y
+    - name: Start Docker
+      command: systemctl start docker
+    - name: Pull flask image
+      command: docker pull 
