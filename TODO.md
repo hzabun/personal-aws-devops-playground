@@ -8,6 +8,7 @@
 - [x] Use Terraform to provision:
     - Three EC2 instances (Amazon Linux 2)
     - Security groups allowing SSH and HTTP
+- [x] Fix unreachable managed nodes issue
 
 ### Configuration via Ansible
 - [ ] Use Ansible to:
