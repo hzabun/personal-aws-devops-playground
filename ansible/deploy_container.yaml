@@ -1,0 +1,57 @@
+---
+- name: Installing Docker daemon and running flask container
+  hosts: myflask
+  become: true
+
+  vars_files:
+    - secrets.yml
+    - vars.yml
+
+  tasks:
+    - name: Install system dependencies
+      dnf:
+        name:
+          - awscli
+          - docker
+          - python3
+          - python3-pip
+          - python3-virtualenv
+        state: present
+
+    - name: Ensure Docker service is started and enabled
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Create Python virtual environment
+      command: python3 -m venv {{ venv_path }}
+      args:
+        creates: "{{ venv_path }}"
+
+    - name: Install Docker SDK in virtual environment
+      ansible.builtin.pip:
+        name: docker
+        virtualenv: "{{ venv_path }}"
+
+    - name: Authenticate Docker with ECR
+      shell: |
+        set -e
+        aws ecr get-login-password --region {{ region }} | \
+        docker login --username AWS --password-stdin {{ account_id }}.dkr.ecr.us-east-1.amazonaws.com
+      args:
+        executable: /bin/bash
+
+    - name: Pull Docker image from ECR
+      community.docker.docker_image:
+        name: "{{ account_id }}.dkr.ecr.us-east-1.amazonaws.com/{{ namespace }}/{{ repo }}:latest"
+        source: pull
+
+    - name: Run the container
+      community.docker.docker_container:
+        name: "my-flask-app"
+        image: "{{ account_id }}.dkr.ecr.us-east-1.amazonaws.com/{{ namespace }}/{{ repo }}:latest"
+        state: started
+        restart_policy: always
+        ports:
+          - "5000:5000"

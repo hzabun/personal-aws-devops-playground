@@ -4,3 +4,5 @@ set -x
 
 sudo dnf update -y
 sudo dnf install ansible -y
+
+sudo ansible-galaxy collection install community.docker

@@ -1,0 +1,4 @@
+region: us-east-1
+namespace: playground
+repo: flask-app
+venv_path: /opt/myenv

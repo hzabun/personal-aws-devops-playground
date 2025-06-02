@@ -1,5 +1,6 @@
 # secrets
-secrets.env
+config/secrets.env
+ansible/secrets.yml
 *.pem
 ssh-keys/
 

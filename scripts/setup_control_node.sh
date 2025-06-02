@@ -55,7 +55,8 @@ echo "Connecting to control node: '${control_node_public_ip}'"
 
 scp -i "$keypair_path" "$keypair_path" "ec2-user@${control_node_public_ip}:~/.ssh"
 scp -i "$keypair_path" "$tmp_private_ip_file" "ec2-user@${control_node_public_ip}:~/managed_nodes_ips"
-scp -i "$keypair_path" "$tmp_ansible_inventory_file" "ec2-user@${control_node_public_ip}:~/myinventory.ini"
-scp -i "$keypair_path" "$tmp_ansible_cfg_file" "ec2-user@${control_node_public_ip}:~/ansible.cfg"
+scp -r -i "$keypair_path" "./ansible" "ec2-user@${control_node_public_ip}:/home/ec2-user/ansible"
+scp -i "$keypair_path" "$tmp_ansible_inventory_file" "ec2-user@${control_node_public_ip}:/home/ec2-user/ansible/myinventory.ini"
+scp -i "$keypair_path" "$tmp_ansible_cfg_file" "ec2-user@${control_node_public_ip}:/home/ec2-user/ansible/ansible.cfg"
 
 trap 'rm -f "$tmp_private_ip_file" "$tmp_ansible_inventory_file" "$tmp_ansible_cfg_file"' EXIT
