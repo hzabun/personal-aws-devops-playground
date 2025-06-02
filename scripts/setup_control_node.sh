@@ -26,7 +26,7 @@ managed_node_private_ips=("${all_private_ips[@]:1}")
 
 # Create file containing managed nodes
 tmp_private_ip_file=$(mktemp)
-printf "%s\n" "${managed_node_private_ips[@]}" > "$tmp_private_ip_file"
+printf "%s\n" "${managed_node_private_ips[@]}" | sed 's/\r//' > "$tmp_private_ip_file"
 echo "Temp private IP file created successfully."
 
 # Create Ansible inventory file
