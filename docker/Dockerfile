@@ -7,16 +7,15 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy flask application code
 COPY app/hello.py app/
 
 # Create a non-root user and switch to it
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-# Set a default port as an environment variable
+# Set default port
 ENV PORT=5000
 
-# Use ENTRYPOINT for the main process
+# Run flask app when container starts
 ENTRYPOINT flask --app hello run --host=0.0.0.0 --port $PORT
-
