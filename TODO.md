@@ -9,12 +9,13 @@
     - Three EC2 instances (Amazon Linux 2)
     - Security groups allowing SSH and HTTP
 - [x] Fix unreachable managed nodes issue
+- [ ] Create EC2 instance profile to access ECR
 
 ### Configuration via Ansible
+- [x] Write bash script to set up control node
 - [ ] Use Ansible to:
     - SSH into each EC2 instance
     - Install Docker and run containerized app
-- [ ] Write bash script to set up control node
 
 ### ECS deployment
 - [ ] Use Terraform to provision an ECS cluster
