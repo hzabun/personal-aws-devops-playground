@@ -1,4 +1,4 @@
-## 📅 June 01, 2025
+## 📅 June 02, 2025
 
 #### Done
 - Fixed issue with unexpected characters added to list of managed node IPs
@@ -23,7 +23,7 @@
   - Keep in mind that instance profiles need to be created separately from IAM roles when using Terraform
 - Run playbook again and troubleshoot further, if necessary
 
-## 📅 May 31, 2025
+## 📅 June 01, 2025
 
 #### Done
 - Refactored project structure a bit
