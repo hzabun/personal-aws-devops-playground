@@ -9,3 +9,6 @@ ssh-keys/
 .terraform*
 terraform.tfvars
 terraform.tfstate*
+
+# python files
+.venv
