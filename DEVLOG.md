@@ -1,3 +1,16 @@
+## 📅 June 03, 2025
+
+#### Done
+- Created instance profile to pull ECR images
+
+#### Learned
+- AWS IAM policy documents are data sources, as opposed to resources, as they are computed values
+  - No infrastructure gets really create in AWS
+
+#### Next steps
+- Test pulling image with Ansible playbook and new instance profiles
+
+
 ## 📅 June 02, 2025
 
 #### Done
