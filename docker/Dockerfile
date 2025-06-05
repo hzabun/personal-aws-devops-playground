@@ -8,7 +8,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy flask application code
-COPY app/hello.py app/
+COPY app/hello.py .
 
 # Create a non-root user and switch to it
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
