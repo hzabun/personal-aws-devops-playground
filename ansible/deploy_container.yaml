@@ -46,6 +46,14 @@
       community.docker.docker_image:
         name: "{{ account_id }}.dkr.ecr.us-east-1.amazonaws.com/{{ namespace }}/{{ repo }}:latest"
         source: pull
+        force_source: true
+
+    - name: Stop container if it's already running
+      community.docker.docker_container:
+        name: "my-flask-app"
+        state: stopped
+        force_kill: yes
+        timeout: 30
 
     - name: Run the container
       community.docker.docker_container:
