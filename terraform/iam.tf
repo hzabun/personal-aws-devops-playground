@@ -39,7 +39,9 @@ data "aws_iam_policy_document" "ecr_pull" {
     actions = [
       "ecr:BatchGetImage",
       "ecr:DescribeImages",
-      "ecr:ListImages"
+      "ecr:ListImages",
+      "ecr:GetAuthorizationToken",
+      "ecr:GetDownloadUrlForLayer"
     ]
     resources = ["*"]
   }
