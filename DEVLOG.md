@@ -1,3 +1,27 @@
+## 📅 June 05, 2025
+
+#### Done
+- Updated EC2 instance profile with all required permissions to pull images from ECR
+- Fixed issue with the directory structure within flask container
+- Fixed issue with wrong platform architecture of the flask image
+- Successfully ran Flask container via Ansible playbook on all managed nodes
+  - Website was accessible without issues
+
+#### Learned
+- `Docker build` command always builds images for achitectures based on the host
+  - On Apple Silicion that would be `linux/arm64`
+  - But Amazon Linux AMI requires `linux/amd64`
+- `Docker buildx build` can be used to build for specific (or multiple) architectures
+
+#### Blockers / Questions
+- How can I let Docker use the latest image if it's a new one?
+  - If using tag `latest`, things can get messy
+  - Docker uses local cache, even if the latest image has changed but the tag name is the same
+
+#### Next steps
+- Perform quick cleanup of current codebase and add comment where useful
+- Ponder how to run flask container on ECS as next big step
+
 ## 📅 June 03, 2025
 
 #### Done
