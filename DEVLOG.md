@@ -1,47 +1,54 @@
 ## 📅 June 05, 2025
 
 #### Done
-- Updated EC2 instance profile with all required permissions to pull images from ECR
-- Fixed issue with the directory structure within flask container
-- Fixed issue with wrong platform architecture of the flask image
-- Successfully ran Flask container via Ansible playbook on all managed nodes
+- [Infra] Updated EC2 instance profile with all required permissions to pull images from ECR
+- [App] Fixed issue with the directory structure within flask container
+  - Prevents app from crashing due to missing/misplaced files
+- [App] Fixed issue with wrong platform architecture of the flask image
+  - Avoids runtime incompatibility (e.g. arm64 vs amd64)
+- [DevOps] Successfully ran Flask container via Ansible playbook on all managed nodes
   - Website was accessible without issues
 
 #### Learned
-- `Docker build` command always builds images for achitectures based on the host
-  - On Apple Silicion that would be `linux/arm64`
+- `Docker build` command always builds images for architectures based on the host
+  - On Apple Silicon that would be `linux/arm64`
   - But Amazon Linux AMI requires `linux/amd64`
 - `Docker buildx build` can be used to build for specific (or multiple) architectures
 
 #### Blockers / Questions
-- How can I let Docker use the latest image if it's a new one?
+- How can I let Docker use the latest image if it's a new one?  
   - If using tag `latest`, things can get messy
   - Docker uses local cache, even if the latest image has changed but the tag name is the same
 
 #### Next steps
-- Perform quick cleanup of current codebase and add comment where useful
+- Perform quick cleanup of current codebase and add comments where useful
 - Ponder how to run flask container on ECS as next big step
 
 ## 📅 June 03, 2025
 
 #### Done
-- Created instance profile to pull ECR images
+- [Infra] Created instance profile to pull ECR images
+  - Grants EC2 instances necessary permissions pull images from ECR
 
 #### Learned
-- AWS IAM policy documents are data sources, as opposed to resources, as they are computed values
-  - No infrastructure gets really create in AWS
+- AWS IAM policy documents are data sources, not resources
+  - No infrastructure gets really created in AWS, as they are just computed values
+
+#### Blockers / Questions
+- Nothing today
 
 #### Next steps
 - Test pulling image with Ansible playbook and new instance profiles
 
-
 ## 📅 June 02, 2025
 
 #### Done
-- Fixed issue with unexpected characters added to list of managed node IPs
-- Converted additional relative paths to absolute ones
-- Wrote proper Ansible playbook to install dependencies, pull image and run container
-  - Fixed dependency issues in the playbook by using virtual environments
+- [Fix] Fixed issue with unexpected characters added to list of managed node IPs
+  - Ensures playbook targets correct IPs
+- [DevOps] Converted additional relative paths to absolute ones
+  - Run scripts from project root to prevent file path issues
+- [DevOps] Wrote proper Ansible playbook to install dependencies, pull image and run container
+  - Adds virtual environments to prevent dependency issues in the playbook
 
 #### Learned
 - Windows automatically adds carriage return characters like `\r` which can lead to file reading issues
@@ -52,7 +59,6 @@
 
 #### Blockers / Questions
 - Using Git Bash on Windows to connect to Linux is cumbersome
-  - VS Code SSH extensions might be worth a shot
 - EC2 instances are still missing IAM permissions to login to ECR/pull images
 
 #### Next steps
@@ -63,13 +69,14 @@
 ## 📅 June 01, 2025
 
 #### Done
-- Refactored project structure a bit
-- Replaced complex relational paths with absolute ones (from project root)
-- Added basic (yet incomplete) Ansible playbook
+- [Refactor] Refactored project structure a bit
+- [Refactor] Replaced complex relational paths with absolute ones (from project root)
+- [DevOps] Added basic (yet incomplete) Ansible playbook
+  - Lays groundwork for automated container deployment
 
 #### Learned
 - Terraform has a command called `cidrsubnet` which calculates subnets given a VPC CIDR and subnet bits
-- Terraform automatically assigns an index to list elements when doing a for expression (in python: list comprehension)
+- Terraform automatically assigns an index to list elements when doing a `for` expression
   - Python would require the function `enumerate` for this
 
 #### Next steps
