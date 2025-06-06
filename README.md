@@ -4,7 +4,7 @@ My personal project to improve my AWS DevOps tools skills. Main focus lies on ru
 ## Roadmap
 - [x] Dockerized Flask App
 - [x] Provisioned basic EC2 infrastructure with Terraform
-- [ ] Set up configuration via Ansible to run the app
+- [x] Set up configuration via Ansible to run the app
 - [ ] Provisioned and set up ECS cluster
 - [ ] Provisioned and set up EKS cluster
 - [ ] Wrote Helm charts to package the app
