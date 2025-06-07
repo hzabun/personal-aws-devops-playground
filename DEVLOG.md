@@ -1,3 +1,18 @@
+## 📅 June 06, 2025
+
+#### Done
+- [Docs] Refactored structure of devlog for more clarity
+  - Added short tags to finished tasks
+
+#### Learned
+- Nothing worth mentioning
+
+#### Blockers / Questions
+- Nothing worth mentioning
+
+#### Next steps
+- Start working on ECS deployment
+
 ## 📅 June 05, 2025
 
 #### Done
@@ -16,7 +31,7 @@
 - `Docker buildx build` can be used to build for specific (or multiple) architectures
 
 #### Blockers / Questions
-- How can I let Docker use the latest image if it's a new one?  
+- How can I let Docker use the latest image if it's a new one?
   - If using tag `latest`, things can get messy
   - Docker uses local cache, even if the latest image has changed but the tag name is the same
 
