@@ -1,3 +1,26 @@
+## 📅 June 07, 2025
+
+#### Done
+- [Infra] Created ECS with EC2 compute terraform files
+  - Includes ECS cluster, ASG, VPC and basic instance profile
+  - Not finished yet, still WIP
+
+#### Learned
+- There's a public SSM parameter which contains the latest ECS optimized AMI ID
+  - Path: `/aws/service/ecs/optimized-ami/amazon-linux-2/recommended`
+  - Can easily be used with terraform data source or AWS CLI `aws ssm get-parameters`
+- ASGs used for ECS clusters need the tag `AmazonECSManaged = true`
+  - Enables ECS to manage the scale in and scale out events of the ASG
+  - Uses target tracking scaling policies on metrics like *CapacityProviderReservation* => cpu/memory reserved by tasks vs cpu/memory available from running EC2 instances
+
+#### Blockers / Questions
+- How does the setting *containerInsights* in the ECS cluster work? What does it do specifically?
+- What resources in the ECS cluster need which IAM roles/permissions?
+
+#### Next steps
+- Find out and create IAM roles/permissions for remaining ECS resources
+- Test create the ECS resources
+
 ## 📅 June 06, 2025
 
 #### Done
