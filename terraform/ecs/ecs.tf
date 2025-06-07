@@ -19,6 +19,6 @@ resource "aws_ecs_capacity_provider" "flask_capacity_group" {
 }
 
 resource "aws_ecs_cluster_capacity_providers" "flask_cluster_capacity" {
-  cluster_name = aws_ecs_cluster.flask_cluster.name
-  capacity_providers = [ aws_ecs_capacity_provider.flask_capacity_group.name ]
+  cluster_name       = aws_ecs_cluster.flask_cluster.name
+  capacity_providers = [aws_ecs_capacity_provider.flask_capacity_group.name]
 }

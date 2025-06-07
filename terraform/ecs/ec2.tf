@@ -6,7 +6,7 @@ resource "aws_launch_template" "flask_instances" {
   name_prefix   = "ecs-flask-instance-"
   image_id      = jsondecode(data.aws_ssm_parameter.ecs_optimized_ami.value)["image_id"]
   instance_type = var.instance_type
-  
+
   user_data = base64encode(<<-EOF
               #!/bin/bash
               echo ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config
