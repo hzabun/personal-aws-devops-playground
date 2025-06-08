@@ -1,3 +1,6 @@
+# Auto-generated files
+.DS_Store
+
 # secrets
 config/secrets.env
 ansible/secrets.yml
