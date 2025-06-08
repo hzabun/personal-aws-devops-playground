@@ -1,3 +1,27 @@
+## 📅 June 08, 2025
+
+#### Done
+- [Infra] Created basic ECS task definition and service resources
+- [DevOps] Set target capacity of managed ASG to 100%
+  - ECS should now try to adjust running instances to fully accomodate resource requests from tasks
+
+#### Learned
+- If using Fargate, CPU and memory requests need to be defined at task-level
+  - Container-level values only specify for each container separately
+  - But Fargate doesn't have isolated EC2 instances running just for these tasks
+  - So defining at task level let's Fargate know how much total compute/memory will be needed
+
+#### Blockers / Questions
+- CloudWatch agent apparently not pre-installed on Amazon Linux 2023 AMI
+  - Container insights should not work properly without the agent
+  - Need to install and configure it properly later on, including IAM roles
+- Currently I'm adding the cluster name to the ECS agent via the following user data
+  - `echo ECS_CLUSTER=${var.ecs_cluster_name} >> /etc/ecs/ecs.config`
+  - What if that line already exists in the `ecs.config` file? Need to SSH into an instance and check
+
+#### Next steps
+- Try provisioning the resources with the current configuration and debug, if necessary
+
 ## 📅 June 07, 2025
 
 #### Done
