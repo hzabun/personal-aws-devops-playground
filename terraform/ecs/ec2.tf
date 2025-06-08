@@ -1,11 +1,14 @@
 data "aws_ssm_parameter" "ecs_optimized_ami" {
-  name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended"
+  name = "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended"
 }
 
 resource "aws_launch_template" "flask_instances" {
   name_prefix   = "ecs-flask-instance-"
   image_id      = jsondecode(data.aws_ssm_parameter.ecs_optimized_ami.value)["image_id"]
   instance_type = var.instance_type
+  iam_instance_profile {
+    name = aws_iam_instance_profile.demo_ecs_instance_profile.name
+  }
 
   user_data = base64encode(<<-EOF
               #!/bin/bash
