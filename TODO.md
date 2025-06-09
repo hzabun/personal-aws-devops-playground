@@ -18,8 +18,9 @@
     - Install Docker and run containerized app
 
 ### ECS deployment
-- [ ] Use Terraform to provision an ECS cluster
-- [ ] Deploy app via tasks and services
+- [x] Use Terraform to provision an ECS cluster
+- [x] Deploy app via tasks and services
+- [ ] Deploy ALB for the ECS service
 
 ### EKS deployment
 - [ ] Use Terraform to provision an EKS cluster
