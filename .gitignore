@@ -2,8 +2,8 @@
 .DS_Store
 
 # secrets
-config/secrets.env
-ansible/secrets.yml
+secrets.env
+secrets.yml
 *.pem
 ssh-keys/
 

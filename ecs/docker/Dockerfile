@@ -4,11 +4,11 @@ FROM python:3.13.3-alpine
 WORKDIR /app
 
 # Copy requirements and install dependencies
-COPY requirements.txt .
+COPY ecs/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy flask application code
-COPY app/hello.py .
+COPY ecs/app/hello.py .
 
 # Create a non-root user and switch to it
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup

@@ -14,6 +14,6 @@ docker buildx create --use || true
 
 # Build, tag and push image to ECR
 docker buildx build --platform linux/amd64 \
-  -f "docker/Dockerfile" \
+  -f "ecs/docker/Dockerfile" \
   -t $ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$NAMESPACE/$REPO:latest \
   --push .
