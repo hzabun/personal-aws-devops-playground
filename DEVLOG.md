@@ -1,3 +1,39 @@
+## 📅 June 09, 2025
+
+#### Done
+- [DevOps] Successfully created ECS service and connected to Flask app
+- [Infra] Changed container instance type to t3.medium
+  - Allows 2 ENIs for ECS tasks (t2.micro allows only one ENI for ECS tasks)
+- Updated flask app to print currently running task ID
+  - Confirmed it's working
+- Refactored project directory structure
+  - Each deployment type gets it's own terraform configs, Dockerfile, flask python file etc.
+
+#### Learned
+- When provisioning EC2 instances via terraform, public IPs are only added if explicitly specified
+  - Creating EC2 instances directly
+    - Settings for the EC2 instances can be set directly
+    - Argument`associate_public_ip_address = true` is necessary
+  - Using launch templates/ASG
+    - No setting for public ip, ASGs use the subnet's setting
+    - Argument `map_public_ip_on_launch = true` in the subnet resource is necessary
+- Configuring Docker networking modes are important
+  Context: current ECS tasks are mapping container port 5000 to host port 5000
+  - Modes `bridge` and `host`
+    - Allow only one container to use that port specific host port
+    - Each EC2 instance can run only a single task, as only one can use that port
+  - Mode `awsvpc`
+    - Each task gets its own ENI with a separate private IP address
+    - EC2 instances can run multiple tasks
+
+#### Blockers / Questions
+- Container instances are running multiple tasks, but tasks don't have a public IP
+  - ~~Cannot connect directly to tasks for debugging purposes as of now~~
+  - Fixed: can connect to private IP of tasks by using an EC2 instance as a jump host
+
+#### Next steps
+- Set up ALB to connect to multiple tasks across multiple EC2 instances
+
 ## 📅 June 08, 2025
 
 #### Done
