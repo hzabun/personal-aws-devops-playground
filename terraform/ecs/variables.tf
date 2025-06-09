@@ -10,7 +10,7 @@ variable "subnet_cidr" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "t3.medium"
 }
 
 variable "ecs_cluster_name" {
