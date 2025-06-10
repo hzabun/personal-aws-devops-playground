@@ -1,3 +1,22 @@
+## 📅 Jun 10, 2025
+
+#### Done
+- [Infra] Added basic ALB to ECS service
+
+#### Learned
+- Using target groups with ECS services is quite straightforward
+  - Just reference it in the ECS service under the `load_balancer` block
+- For manual EC2 instance, target group attachments would be needed
+  - Use `for_each` meta argument
+  - Also use the `k => v` expression to convert a list of EC2 instances into a map
+  - Helps reduce reduntant resource specifications and keep code clean
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Test ALB by provisioning it in AWS
+
 ## 📅 June 09, 2025
 
 #### Done
