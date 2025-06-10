@@ -25,7 +25,7 @@ resource "aws_ecs_cluster_capacity_providers" "flask_cluster_capacity" {
 }
 
 resource "aws_ecs_task_definition" "flask_task_definition" {
-  family = "flask-app"
+  family       = "flask-app"
   network_mode = "awsvpc"
   container_definitions = jsonencode([
     {
@@ -50,7 +50,13 @@ resource "aws_ecs_service" "flask_service" {
   task_definition = aws_ecs_task_definition.flask_task_definition.arn
   desired_count   = 7
   network_configuration {
-    subnets = [ aws_subnet.public_subnet.id ]
-    security_groups = [ aws_security_group.ecs_flask_sg.id ]
+    subnets         = [aws_subnet.public_subnet.id]
+    security_groups = [aws_security_group.ecs_flask_sg.id]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.ecs_flask_alb_target_group.arn
+    container_name   = "flask-app"
+    container_port   = 5000
   }
 }
