@@ -1,3 +1,30 @@
+## 📅 June 11, 2025
+
+#### Done
+- [DevOps] Removed wrong container agent variable name
+  - Wrote *TASK* instead of *CONTAINER*
+  - Apparently, the whole setting is set to true by default with my current agent version
+
+#### Learned
+- AWS ECS provides two ways to analyze task metadata
+  - Metadata endpoint
+    - Used in the current flask app
+    - Retrieves URI of metadata from environment variables, queries task ARN and extracts task ID
+  - Metadata file
+    - File gets created in the host container instance
+    - Afterwards, mounted in the container as a Docker volume
+    - Result => file can be accessed from the host container instance and from within containers
+    - As it gets mounted as a Docker volume, it's not availabe with Fargate
+
+#### Blockers / Questions
+- Looks like there's a typo in the container agent variable I specified
+  - What I wrote: `ECS_ENABLE_TASK_METADATA=true`
+  - What it should be: `ECS_ENABLE_CONTAINER_METADATA=true`
+  - It's still working, though, as container metadata is enabled by default for new agent versions
+
+#### Next steps
+- Provision infrastructure and test new ALB
+
 ## 📅 Jun 10, 2025
 
 #### Done
@@ -23,9 +50,9 @@
 - [DevOps] Successfully created ECS service and connected to Flask app
 - [Infra] Changed container instance type to t3.medium
   - Allows 2 ENIs for ECS tasks (t2.micro allows only one ENI for ECS tasks)
-- Updated flask app to print currently running task ID
+- [App] Updated flask app to print currently running task ID
   - Confirmed it's working
-- Refactored project directory structure
+- [Refactor] Refactored project directory structure
   - Each deployment type gets it's own terraform configs, Dockerfile, flask python file etc.
 
 #### Learned
