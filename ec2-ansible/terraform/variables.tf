@@ -12,7 +12,7 @@ variable "num_instances" {
   type    = number
   default = 3
   validation {
-    condition = length(var.num_instances) >= 2
+    condition     = length(var.num_instances) >= 2
     error_message = "The num_instances must be minimum 2 for Ansible to have at least one instance to manage."
   }
 }
