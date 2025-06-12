@@ -1,3 +1,17 @@
+## 📅 June 12, 2025
+
+#### Done
+- [Docs] added basic placeholder section to the README for how to run this project
+
+#### Learned
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Provision infrastructure and test new ALB
+
 ## 📅 June 11, 2025
 
 #### Done
