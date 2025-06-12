@@ -1,6 +1,17 @@
 # personal-aws-devops-playground
 My personal project to improve my AWS DevOps tools skills. Main focus lies on running Docker containers in AWS and provisioning infrastructure via Terraform.
 
+## How to run this project
+### EC2 Ansible deployment
+- TODO
+
+### ECS deployment
+- TODO
+
+### EKS deployment
+- TODO
+
+
 ## Roadmap
 - [x] Dockerized Flask App
 - [x] Provisioned basic EC2 infrastructure with Terraform
