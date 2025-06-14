@@ -20,7 +20,7 @@
 ### ECS deployment
 - [x] Use Terraform to provision an ECS cluster
 - [x] Deploy app via tasks and services
-- [ ] Deploy ALB for the ECS service
+- [x] Deploy ALB for the ECS service
 
 ### EKS deployment
 - [ ] Use Terraform to provision an EKS cluster
