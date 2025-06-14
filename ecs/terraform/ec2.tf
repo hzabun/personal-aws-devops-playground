@@ -6,7 +6,7 @@ resource "aws_launch_template" "flask_instances" {
   name_prefix            = "ecs-flask-instance-"
   image_id               = jsondecode(data.aws_ssm_parameter.ecs_optimized_ami.value)["image_id"]
   instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.ecs_flask_sg.id]
+  vpc_security_group_ids = [aws_security_group.ecs_flask_task_sg.id]
   key_name               = "flask-app-key"
   iam_instance_profile {
     name = aws_iam_instance_profile.demo_ecs_instance_profile.name
@@ -24,7 +24,7 @@ resource "aws_launch_template" "flask_instances" {
 }
 
 resource "aws_autoscaling_group" "ecs_flask_asg" {
-  vpc_zone_identifier = [aws_subnet.public_subnet.id]
+  vpc_zone_identifier = [aws_subnet.public_subnet1.id, aws_subnet.public_subnet2.id]
   desired_capacity    = 3
   max_size            = 3
   min_size            = 1
@@ -47,7 +47,7 @@ resource "aws_autoscaling_group" "ecs_flask_asg" {
   }
 }
 
-resource "aws_security_group" "ecs_flask_sg" {
+resource "aws_security_group" "ecs_flask_task_sg" {
   name        = "ecs-flask-sg"
   description = "Allow inbound traffic to Flask app"
   vpc_id      = aws_vpc.main.id
@@ -56,12 +56,25 @@ resource "aws_security_group" "ecs_flask_sg" {
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [ aws_security_group.ecs_flask_lb_sg.id ]
   }
 
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "ecs_flask_lb_sg" {
+  name = "ecs-flask-alb-sg"
+  description = "Allow inbound traffic to flask ALB"
+  vpc_id      = aws_vpc.main.id
+
   ingress {
-    from_port   = 22
-    to_port     = 22
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -83,9 +96,10 @@ resource "aws_lb" "ecs_flask_alb" {
   name               = "ecs-flask-alb"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [aws_subnet.public_subnet.id]
+  subnets            = [aws_subnet.public_subnet1.id, aws_subnet.public_subnet2.id]
+  security_groups = [ aws_security_group.ecs_flask_lb_sg.id]
 
-  enable_deletion_protection = true
+  enable_deletion_protection = false
 
   tags = local.tags
 }
@@ -94,7 +108,16 @@ resource "aws_lb_target_group" "ecs_flask_alb_target_group" {
   name     = "ecs-flask-alb-target-group"
   port     = 5000
   protocol = "HTTP"
+  target_type = "ip"
   vpc_id   = aws_vpc.main.id
+
+  health_check {
+    path                = "/"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
 }
 
 resource "aws_lb_listener" "ecs_flask_alb_listener" {
