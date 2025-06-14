@@ -1,3 +1,36 @@
+## 📅 June 14, 2025
+
+#### Done
+- [DevOps] Modified image build and push script to reuse previous builder
+  - Solves issue with same script recreating all images every time
+  - Now, cache persists and layers are reused
+- [Infra] Added second subnet for ALB to work properly
+  - ALBs require at least two subnets in different AZs
+- [Infra] Provisioned ALB and confirmed it's working
+  - Properly distributes requests between all tasks
+
+#### Learned
+- When using `awsvpc` as the network mode for ECS task definitions, target groups should use type `ip`
+  - By setting `awsvpc`, each task gets its own ENI and private IP address
+  - So the target group has to target the ECS tasks via IP
+  - The default setting with `instance` would use the EC2 primary ENI as opposed to the tasks ENI => not clear where to forward traffic
+- When using `&>/dev/null` it suppresses all stdout and stderror
+  - But the exit code still exists, so conditional expressions still work flawlessly, 
+  - This can be seen in the build and push script, when checking of existing docker builders
+- Claude Sonnet 3.5 is better suited for coding/debugging, wherease GPT4.1 better for explanations
+  - Had an issue with health checks in the target group
+  - Claude Sonnet 3.5 found the issue with a single prompt (GPT4.1 failed after many prompts)
+  - On the other hand, GPT4.1 excels at explaining concepts (if it doesn't hallucinate)
+
+#### Blockers / Questions
+- All blockers fixed
+  - Target groups health checks were failing
+  - ALB was responding with 504 gateway error
+  - ALBs needed to be deployed in distinct AZs explicitly
+
+#### Next steps
+- Start reading into how to deploy flask app in EKS
+
 ## 📅 June 12, 2025
 
 #### Done
