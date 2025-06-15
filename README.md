@@ -36,7 +36,18 @@ My personal project to improve my AWS DevOps tools skills. Main focus lies on ru
 - Send an HTTP GET request to the managed nodes and check the message returned
 
 ### ECS deployment
-- TODO
+#### Set up secrets
+- Create file `secrets.env` in the folder `/config/` and add your AWS account ID there
+  - Format should be `ACCOUNT_ID="123456"`
+  - Will be used on your local machine to login to your ECR and push the flask app image
+- (Optional) add your account ID to the `terraform.tfvars` file
+  - Or enter it during `terraform apply` later
+
+#### Provision resources
+- From the `/ec2-ansible/terraform/` folder run `terraform apply`
+  - Provisions the whole infrastructure, including the ECS service and an ALB
+- Copy the ALB DNS output from Terraform and either open it in a browser or run a `curl` command
+  - Repeat this to see different task IDs confirming that load balancing is working
 
 ### EKS deployment
 - TODO
