@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Keypair file name provided as input
-keypair_path="./ssh-keys/$1"
+keypair_path="./ec2-ansible/ssh-keys/$1"
 if [[ -z "$1" ]]; then
   echo "Please provide a keypair file name"
   exit 1

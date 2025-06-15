@@ -24,6 +24,6 @@ resource "aws_instance" "flask_instances" {
 }
 
 resource "aws_key_pair" "kp" {
-  key_name   = "flask_app_key"
-  public_key = file("${path.module}/../../ssh-keys/ec2-key.pub")
+  key_name   = "flask-app-key"
+  public_key = file("${path.module}/../ssh-keys/ec2-key.pub")
 }
