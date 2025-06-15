@@ -1,3 +1,17 @@
+## 📅 June 15, 2025
+
+#### Done
+- [Docs] Added steps to perform ECS deployment
+
+#### Learned
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Continue with EKS deployment
+
 ## 📅 June 14, 2025
 
 #### Done
