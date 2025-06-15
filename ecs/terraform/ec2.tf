@@ -7,7 +7,6 @@ resource "aws_launch_template" "flask_instances" {
   image_id               = jsondecode(data.aws_ssm_parameter.ecs_optimized_ami.value)["image_id"]
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.ecs_flask_task_sg.id]
-  key_name               = "flask-app-key"
   iam_instance_profile {
     name = aws_iam_instance_profile.demo_ecs_instance_profile.name
   }
@@ -85,11 +84,6 @@ resource "aws_security_group" "ecs_flask_lb_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_key_pair" "kp" {
-  key_name   = "flask-app-key"
-  public_key = file("${path.module}/../../ssh-keys/ec2-key.pub")
 }
 
 resource "aws_lb" "ecs_flask_alb" {
