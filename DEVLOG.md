@@ -31,6 +31,21 @@
 #### Next steps
 - Start reading into how to deploy flask app in EKS
 
+## 📅 June 13, 2025
+
+#### Done
+- [Docs] Filled section on how to deploy flask in EC2 with Ansible
+- [Refactor] Moved ECR login command to build and push script
+
+#### Learned
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Provision ECS infrastructure with ALB
+
 ## 📅 June 12, 2025
 
 #### Done
