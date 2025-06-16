@@ -27,6 +27,7 @@ resource "aws_ecs_cluster_capacity_providers" "flask_cluster_capacity" {
 resource "aws_ecs_task_definition" "flask_task_definition" {
   family       = "flask-app"
   network_mode = "awsvpc"
+  execution_role_arn = aws_iam_role.demo_ecs_task_execution_role.arn
   container_definitions = jsonencode([
     {
       name      = "flask-app"
@@ -40,6 +41,15 @@ resource "aws_ecs_task_definition" "flask_task_definition" {
           hostPort      = 5000
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          "awslogs-create-group" : "true",
+          "awslogs-group" : "awslogs-flask",
+          "awslogs-region" : "us-east-1",
+          "awslogs-stream-prefix" : "awslogs-example"
+        }
+      }
     }
   ])
 }
