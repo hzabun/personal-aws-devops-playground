@@ -52,10 +52,10 @@ resource "aws_security_group" "ecs_flask_task_sg" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    from_port   = 5000
-    to_port     = 5000
-    protocol    = "tcp"
-    security_groups = [ aws_security_group.ecs_flask_lb_sg.id ]
+    from_port       = 5000
+    to_port         = 5000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs_flask_lb_sg.id]
   }
 
   egress {
@@ -67,7 +67,7 @@ resource "aws_security_group" "ecs_flask_task_sg" {
 }
 
 resource "aws_security_group" "ecs_flask_lb_sg" {
-  name = "ecs-flask-alb-sg"
+  name        = "ecs-flask-alb-sg"
   description = "Allow inbound traffic to flask ALB"
   vpc_id      = aws_vpc.main.id
 
@@ -91,7 +91,7 @@ resource "aws_lb" "ecs_flask_alb" {
   internal           = false
   load_balancer_type = "application"
   subnets            = [aws_subnet.public_subnet1.id, aws_subnet.public_subnet2.id]
-  security_groups = [ aws_security_group.ecs_flask_lb_sg.id]
+  security_groups    = [aws_security_group.ecs_flask_lb_sg.id]
 
   enable_deletion_protection = false
 
@@ -99,11 +99,11 @@ resource "aws_lb" "ecs_flask_alb" {
 }
 
 resource "aws_lb_target_group" "ecs_flask_alb_target_group" {
-  name     = "ecs-flask-alb-target-group"
-  port     = 5000
-  protocol = "HTTP"
+  name        = "ecs-flask-alb-target-group"
+  port        = 5000
+  protocol    = "HTTP"
   target_type = "ip"
-  vpc_id   = aws_vpc.main.id
+  vpc_id      = aws_vpc.main.id
 
   health_check {
     path                = "/"
