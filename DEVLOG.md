@@ -1,3 +1,23 @@
+## 📅 June 16, 2025
+
+#### Done
+- [Infra] Created IAM ECS task execution role for the ECS tasks
+  - Previously, tasks were using the ECS container instance role
+  - However, best practice is to separate those and assign the tasks their own specific execution role
+- [DevOps] Added functionality to send container logs to CloudWatch logs
+  - Specified the `awslogs` driver in the container definitions
+  - Tasks now create the log group if necessary and send log streams of the flask app
+
+#### Learned
+- Fargate explicitly requires creating a task execution role
+  - There's no container instance role as Fargate is serverless
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Continue with EKS deployment
+
 ## 📅 June 15, 2025
 
 #### Done
