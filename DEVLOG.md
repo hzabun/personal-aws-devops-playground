@@ -1,3 +1,19 @@
+## 📅 June 17, 2025
+
+#### Done
+- [Infra] Added first version of EKS cluster
+
+#### Learned
+- EKS Auto Mode handles scaling of EC2 instance nodes
+  - Uses a Karpenter-based system
+  - No need for a cluster autoscaler anymore
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Expand EKS cluster infrastructure and test run it
+
 ## 📅 June 16, 2025
 
 #### Done
