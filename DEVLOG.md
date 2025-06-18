@@ -1,3 +1,20 @@
+## 📅 June 18, 2025
+
+#### Done
+- [Infra] Added two private subnets
+  - Aim is to deploy EKS nodes in private subnets and the ALB in the public ones
+
+#### Learned
+- EKS uses a karpenter-based system to provision nodes (EC2 instances)
+  - Provisioning and deprovisioning happens in response to pod requests
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Add remaining EKS resources to terraform
+- Run a sample deployment to test for missing configuration
+
 ## 📅 June 17, 2025
 
 #### Done
