@@ -3,14 +3,24 @@ variable "vpc_cidr" {
   default = "10.0.0.0/24"
 }
 
-variable "subnet1_cidr" {
+variable "public_subnet1_cidr" {
   type    = string
-  default = "10.0.0.0/25"
+  default = "10.0.0.0/26"
 }
 
-variable "subnet2_cidr" {
+variable "public_subnet2_cidr" {
   type    = string
-  default = "10.0.0.128/25"
+  default = "10.0.0.64/26"
+}
+
+variable "private_subnet1_cidr" {
+  type    = string
+  default = "10.0.0.128/26"
+}
+
+variable "private_subnet2_cidr" {
+  type    = string
+  default = "10.0.0.192/26"
 }
 
 variable "eks_cluster_name" {
