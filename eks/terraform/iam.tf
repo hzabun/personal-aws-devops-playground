@@ -14,13 +14,18 @@ resource "aws_iam_role" "flask_node_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "node_AmazonEKSWorkerNodeMinimalPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodeMinimalPolicy"
+resource "aws_iam_role_policy_attachment" "flask_node_EKS_worker_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.flask_node_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "node_AmazonEC2ContainerRegistryPullOnly" {
+resource "aws_iam_role_policy_attachment" "flask_node_ECR_pull_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly"
+  role       = aws_iam_role.flask_node_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "flask_node_EKS_CNI_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.flask_node_role.name
 }
 
@@ -43,27 +48,27 @@ resource "aws_iam_role" "flask_cluster_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "flask_cluster_role_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSComputePolicy" {
+resource "aws_iam_role_policy_attachment" "flask_cluster_compute_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSComputePolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSBlockStoragePolicy" {
+resource "aws_iam_role_policy_attachment" "flask_cluster_storage_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSBlockStoragePolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSLoadBalancingPolicy" {
+resource "aws_iam_role_policy_attachment" "flask_cluster_lb_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSNetworkingPolicy" {
+resource "aws_iam_role_policy_attachment" "flask_cluster_networking_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSNetworkingPolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }

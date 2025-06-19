@@ -39,10 +39,10 @@ resource "aws_eks_cluster" "flask_cluster" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.cluster_AmazonEKSComputePolicy,
-    aws_iam_role_policy_attachment.cluster_AmazonEKSBlockStoragePolicy,
-    aws_iam_role_policy_attachment.cluster_AmazonEKSLoadBalancingPolicy,
-    aws_iam_role_policy_attachment.cluster_AmazonEKSNetworkingPolicy,
+    aws_iam_role_policy_attachment.flask_cluster_role_policy_attachment,
+    aws_iam_role_policy_attachment.flask_cluster_compute_policy_attachment,
+    aws_iam_role_policy_attachment.flask_cluster_storage_policy_attachment,
+    aws_iam_role_policy_attachment.flask_cluster_lb_policy_attachment,
+    aws_iam_role_policy_attachment.flask_cluster_networking_policy_attachment,
   ]
 }
