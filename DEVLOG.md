@@ -1,3 +1,26 @@
+## 📅 June 19, 2025
+
+#### Done
+- [Infra] added NAT gateways to the private subnets
+  - Needed for the pods to be able to pull images
+- [DevOps] deployed barebones version of the EKS cluster for testing purposes
+  - Deployment was successful
+- [Refactor] renamed a couple variables and the EKS cluster for more clarity
+
+#### Learned
+- EKS with auto mode differentiates node pools between `general-purpose` and `system`
+  -`system` has taint which allows critical addons only
+  - `general-purpose` is, as the name suggest, for general purpose workloads
+
+#### Blockers / Questions
+- Access entry resource still needs to be created
+  - Needed for authenticating IAM roles with the EKS cluster and using kubectl
+- Curios what use cases there might be to use node pool `system` in the cluster
+
+#### Next steps
+- Create access entry resource
+- Test if kubectl works
+
 ## 📅 June 18, 2025
 
 #### Done
