@@ -25,5 +25,5 @@ variable "private_subnet2_cidr" {
 
 variable "eks_cluster_name" {
   type    = string
-  default = "demo_cluster"
+  default = "demo-cluster"
 }
