@@ -27,3 +27,7 @@ variable "eks_cluster_name" {
   type    = string
   default = "demo-cluster"
 }
+
+variable "admin_user_name" {
+  type = string
+}

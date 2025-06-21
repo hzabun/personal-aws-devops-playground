@@ -46,3 +46,19 @@ resource "aws_eks_cluster" "flask_cluster" {
     aws_iam_role_policy_attachment.flask_cluster_networking_policy_attachment,
   ]
 }
+
+resource "aws_eks_access_entry" "flask_cluster_access_entry" {
+  cluster_name      = aws_eks_cluster.flask_cluster.name
+  principal_arn     = data.aws_iam_user.admin_user.arn
+  kubernetes_groups = ["platform-admins"]
+  type              = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "flask_cluster_admin_policy_association" {
+  cluster_name  = aws_eks_access_entry.flask_cluster_access_entry.cluster_name
+  principal_arn = data.aws_iam_user.admin_user.arn
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+  access_scope {
+    type = "cluster"
+  }
+}

@@ -72,3 +72,7 @@ resource "aws_iam_role_policy_attachment" "flask_cluster_networking_policy_attac
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSNetworkingPolicy"
   role       = aws_iam_role.flask_cluster_role.name
 }
+
+data "aws_iam_user" "admin_user" {
+  user_name = var.admin_user_name
+}
