@@ -1,3 +1,31 @@
+## 📅 June 21, 2025
+
+#### Done
+- [Infra] Added access entry and access policy for given user
+  - User has full admin permissions for testing purposes
+- [DevOps] Successfully created sample nginx pod in the EKS cluster via kubectl
+  - Karpenter automatically provisioned EC2 instance as node
+
+#### Learned
+- EKS managed roles can be sufficient for quick testing purposes
+  - Kubernetes based RBAC is still possible by setting kubernetes groups in the access entry
+- Claude Sonnet 4 is very impressive when it comes to code generation
+  - A simple prompt asking about how to provision an EKS cluster via Terraform delivers a full list of tf files
+  - Those include AWS VPC, IAM roles, EKS cluster resource, data sources, outputs, variables etc.
+
+#### Blockers / Questions
+- What are some best practices when deciding between using EKS managed roles and RBAC via kubernetes groups?
+- EC2 types automatically created by Karpenter turned out to be problematic
+  - Currently using an AWS cloud playground service to provision resources via Terraform
+  - Running a basic flask container seems to have triggered Karpenter to provision an EC2 instance with a non-allowed instance type
+  - Solution would be one of the following:
+    - Limit what EC2 instance types Karpenter can provision by using Kubernetes manifests
+    - Don't use EKS Auto Mode for now and specify nodepools directly in Terraform
+
+#### Next steps
+- Add Karpenter Kubernetes manifests to limit EC2 instance types
+- Create pod with the flask image and test run it
+
 ## 📅 June 19, 2025
 
 #### Done
