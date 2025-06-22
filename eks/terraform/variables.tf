@@ -31,3 +31,16 @@ variable "eks_cluster_name" {
 variable "admin_user_name" {
   type = string
 }
+
+variable "allowed_instance_types" {
+  description = "List of allowed EC2 instance types for Karpenter"
+  type        = list(string)
+  default = [
+    "t2.micro",
+    "t2.small",
+    "t2.medium",
+    "t3.micro",
+    "t3.small",
+    "t3.medium"
+  ]
+}
