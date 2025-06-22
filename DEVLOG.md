@@ -1,3 +1,30 @@
+## 📅 June 22, 2025
+
+#### Done
+- [Infra] Added node pool to Karpenter to restrict EC2 instance types
+  - Was causing issues with AWS cloud playground, as only selectec instance types are allowed
+- [Infra] Added security groups for the nodes
+  - Allows all traffic between nodes
+  - Allows egress from the nodes
+
+#### Learned
+- Following Kubernetes and Karpenter label are very useful
+  - `karpenter.sh/capacity-type` => type of instances, e.g. `on-demand` or `spot`
+  - `node.kubernetes.io/instance-type` => instance type populated by kubelet, e.g. `t3.medium`
+  - `kubernetes.io/arch` => architecture of the machine, e.g. `amd64` and `arm64`
+- Used Claude Sonnet 4 for pair programming
+  - Really good advices and helpful when debugging
+  - But needs cross-checking every code snippet it delivers
+  - Hallucinated multiple times today and used an outdated Karpenter API version
+
+#### Blockers / Questions
+- Getting error with no client config, when trying to run `terraform apply`
+  - Dependency issue, terraform is creating the EKS cluster and at the same time trying to create the kubernetes manifests
+
+#### Next steps
+- Fix dependency issue when provisioning cluster
+- Deploy app and check that Karpenter is using correct node pool
+
 ## 📅 June 21, 2025
 
 #### Done
