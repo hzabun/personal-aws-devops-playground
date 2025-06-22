@@ -15,7 +15,7 @@ resource "aws_subnet" "public_subnet1" {
   map_public_ip_on_launch = true
 
   tags = merge(local.tags, {
-    visibility = "public"
+    visibility = "public",
   })
 }
 
@@ -37,7 +37,8 @@ resource "aws_subnet" "private_subnet1" {
   map_public_ip_on_launch = false
 
   tags = merge(local.tags, {
-    visibility = "public"
+    visibility               = "public"
+    "karpenter.sh/discovery" = var.eks_cluster_name
   })
 }
 
@@ -48,7 +49,8 @@ resource "aws_subnet" "private_subnet2" {
   map_public_ip_on_launch = false
 
   tags = merge(local.tags, {
-    visibility = "public"
+    visibility               = "public"
+    "karpenter.sh/discovery" = var.eks_cluster_name
   })
 }
 
@@ -139,4 +141,30 @@ resource "aws_route_table_association" "private_assoc1" {
 resource "aws_route_table_association" "private_assoc2" {
   subnet_id      = aws_subnet.private_subnet2.id
   route_table_id = aws_route_table.private2.id
+}
+
+resource "aws_security_group" "karpenter_nodes" {
+  name        = "karpenter-nodes"
+  description = "Security group for Karpenter-managed nodes"
+  vpc_id      = aws_vpc.main.id
+
+  // Allow all traffic within the group (nodes <-> nodes)
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
+  }
+
+  // Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = merge(local.tags, {
+    "karpenter.sh/discovery" = var.eks_cluster_name
+  })
 }
