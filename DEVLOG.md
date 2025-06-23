@@ -1,3 +1,22 @@
+## 📅 June 23, 2025
+
+#### Done
+- [Fix] Tried fixing error with custom Karpenter node pools, albeit to no avail
+  - Lots of issues with Terraform, might be easier with CloudFormation/CDK
+  - Or maybe using EKS module
+
+#### Learned
+- When disabling default node pools `system` and `general-purpose`, custom node classes have to be defined
+  - Additionally, access entry for the node pool needs to be specified as well
+
+#### Blockers / Questions
+- Trying to set custom node pools for EKS auto mode via Terraform kept producing errors
+  - Either cluster not ready yet or invalid credentials or simply no nodes being provisioned
+  - Will try auto mode with custom Karpenter node pools in the future again, but with EKS module instead of from scratch
+
+#### Next steps
+- Switch to managed node groups without auto mode for now
+
 ## 📅 June 22, 2025
 
 #### Done
