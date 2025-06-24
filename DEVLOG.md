@@ -1,3 +1,27 @@
+## 📅 June 24, 2025
+
+#### Done
+- [Infra] Modfied EKS cluster configuration with auto mode turned off
+  - Created security group for EKS cluster
+  - Created node group
+  - Removed no longer used IAM policy attachments
+- [Infra] Set instance types to `t3.medium`
+  - Hopefully it will work this time
+
+#### Learned
+- Kubernetes services use by default ports 30000 - 32767
+- Kube-apiserver uses port 10250 to communicate with kubelet running on nodes
+
+#### Blockers / Questions
+- Terraform might show drift when autoscaling changes the `desired` value of running nodes in the node group
+  - One workaround might be using Terraform `lifecycle` blocks
+  - Ignoring for now, but will revisit this if it becomes an issue later on
+
+#### Next steps
+- Provision new cluster with auto mode turned off
+- Run pod with flask app
+- Check if nodes with correct instance type are provisioned
+
 ## 📅 June 23, 2025
 
 #### Done
