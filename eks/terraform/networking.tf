@@ -37,8 +37,7 @@ resource "aws_subnet" "private_subnet1" {
   map_public_ip_on_launch = false
 
   tags = merge(local.tags, {
-    visibility               = "public"
-    "karpenter.sh/discovery" = var.eks_cluster_name
+    visibility = "private"
   })
 }
 
@@ -49,8 +48,7 @@ resource "aws_subnet" "private_subnet2" {
   map_public_ip_on_launch = false
 
   tags = merge(local.tags, {
-    visibility               = "public"
-    "karpenter.sh/discovery" = var.eks_cluster_name
+    visibility = "private"
   })
 }
 
@@ -143,20 +141,10 @@ resource "aws_route_table_association" "private_assoc2" {
   route_table_id = aws_route_table.private2.id
 }
 
-resource "aws_security_group" "karpenter_nodes" {
-  name        = "karpenter-nodes"
-  description = "Security group for Karpenter-managed nodes"
+resource "aws_security_group" "flask_eks_cluster_sg" {
+  name_prefix = "flask-eks-cluster-sg"
   vpc_id      = aws_vpc.main.id
 
-  // Allow all traffic within the group (nodes <-> nodes)
-  ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    self      = true
-  }
-
-  // Allow all outbound traffic
   egress {
     from_port   = 0
     to_port     = 0
@@ -164,7 +152,44 @@ resource "aws_security_group" "karpenter_nodes" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = merge(local.tags, {
-    "karpenter.sh/discovery" = var.eks_cluster_name
-  })
+  tags = {
+    Name = "flask-eks-cluster-sg"
+  }
+}
+
+resource "aws_security_group" "flask_eks_nodes_sg" {
+  name_prefix = "flask-eks-nodes-sg"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "Allow all traffic within the group between nodes"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    self        = true
+  }
+
+  ingress {
+    description     = "Allow kubelet API communication from control plane"
+    from_port       = 10250
+    to_port         = 10250
+    protocol        = "tcp"
+    security_groups = [aws_security_group.flask_eks_cluster_sg.id]
+  }
+
+  ingress {
+    description = "Allow NodePort services"
+    from_port   = 30000
+    to_port     = 32767
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/24"]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
