@@ -8,7 +8,7 @@ COPY eks/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy flask application code
-COPY ecs/app/hello.py .
+COPY eks/app/hello.py .
 
 # Create a non-root user and switch to it
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup

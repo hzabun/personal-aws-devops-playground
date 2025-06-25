@@ -21,6 +21,6 @@ fi
 
 # Build, tag and push image to ECR
 docker buildx build --platform linux/amd64 \
-  -f "ecs/docker/Dockerfile" \
+  -f "eks/docker/Dockerfile" \
   -t $ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/$NAMESPACE/$REPO:latest \
   --push .
