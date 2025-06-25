@@ -1,3 +1,47 @@
+## 📅 June 25, 2025
+
+#### Done
+- [App] Added pod and node attributes to the printed message
+  - Shows pod name, pod IP, node name and node IP
+- [Fix] Fixed wrong folder paths
+- [Infra] Fixed networking and add-ons
+  - CNI plugins were not working as bootstrapping was turned off
+  - Prevented EC2 instances from registering as ready nodes
+- [Docs] Updated todo.md
+
+#### Learned
+- Following subnet tags are important for EKS
+  - (deprecated) `"kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"` and `"kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"`
+    - Tells AWS that the subnet is owned/shared by the EKS cluster
+  - `"kubernetes.io/role/elb" = "1"`
+    - Tells AWS to use this subnet for internet-facing load balancers
+    - Only needed if subnets were not explicitly specified within the load balancer configuration
+  - `"kubernetes.io/role/internal-elb" = "1"`
+    - Same as above, but for private/internal load balancers
+- Setting `bootstrap_self_managed_addons` correctly is crucial
+  - If set to `false` => all add-ons must be installed manually
+    - Actually required if auto mode is on
+  - If set to `true` => installs standard unmanaged addons like `aws-cni`, `kube-proxy` and CoreDNS
+- Kubernetes as an API called `downward API`
+  - Exposes information about a pod through environment variables in the pod definition
+  - Can provide pod name, node name, pod IP, pod service account and even container level information
+    - All as simple environment variables
+- EC2 instance metadata service has specific reserved IP address `169.254.169.254`
+  - Only accessible from within an EC2 instance (and the pods/containers running on it)
+  - Provides information about the instance, such as ID, IAM role credentials etc.
+
+#### Blockers / Questions
+- Provisioned nodes were in a non-ready condition
+  - cni plugin was not initialized
+  - Likely due to misconfiguration with `bootstrap_self_managed_addons` set to `false`
+- Printing pod and node attributes works fine, but not printing the EC2 instance ID
+  - Possible reason might be the default IMDS hop limit of 1
+  - Setting up launch template with higher hop limit might solve the issue
+
+#### Next steps
+- Try out adding launch template to node group and increase IMDS hops
+- Write short helm file to deploy flask app
+
 ## 📅 June 24, 2025
 
 #### Done
