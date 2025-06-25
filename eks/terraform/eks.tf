@@ -8,23 +8,7 @@ resource "aws_eks_cluster" "flask_cluster" {
   role_arn = aws_iam_role.eks_flask_cluster_role.arn
   version  = "1.31"
 
-  bootstrap_self_managed_addons = false
-
-  compute_config {
-    enabled = false
-  }
-
-  kubernetes_network_config {
-    elastic_load_balancing {
-      enabled = false
-    }
-  }
-
-  storage_config {
-    block_storage {
-      enabled = false
-    }
-  }
+  bootstrap_self_managed_addons = true
 
   vpc_config {
     endpoint_private_access = true
@@ -34,6 +18,8 @@ resource "aws_eks_cluster" "flask_cluster" {
       aws_subnet.private_subnet1.id,
       aws_subnet.private_subnet2.id
     ]
+
+    security_group_ids = [aws_security_group.flask_eks_cluster_sg.id]
   }
 
   depends_on = [
