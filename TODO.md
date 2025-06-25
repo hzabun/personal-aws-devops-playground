@@ -23,7 +23,7 @@
 - [x] Deploy ALB for the ECS service
 
 ### EKS deployment
-- [ ] Use Terraform to provision an EKS cluster
+- [x] Use Terraform to provision an EKS cluster
 - [ ] Use kubectl to deploy the same app to the cluster
 
 ### Helm automation
