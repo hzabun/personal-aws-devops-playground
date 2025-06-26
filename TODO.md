@@ -24,10 +24,10 @@
 
 ### EKS deployment
 - [x] Use Terraform to provision an EKS cluster
-- [ ] Use kubectl to deploy the same app to the cluster
+- [x] Use kubectl to deploy the same app to the cluster
 
 ### Helm automation
-- [ ] Package app into a Helm chart and deploy it
+- [x] Package app into a Helm chart and deploy it
 
 ### CI/CD via GitHub Actions
 - [ ] Set up a GitHub repo for the app

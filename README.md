@@ -58,6 +58,6 @@ My personal project to improve my AWS DevOps tools skills. Main focus lies on ru
 - [x] Provisioned basic EC2 infrastructure with Terraform
 - [x] Set up configuration via Ansible to run the app
 - [x] Provisioned and set up ECS cluster
-- [ ] Provisioned and set up EKS cluster
-- [ ] Wrote Helm charts to package the app
+- [x] Provisioned and set up EKS cluster
+- [x] Wrote Helm charts to package the app
 - [ ] Created CI/CD via GitHub Actions
