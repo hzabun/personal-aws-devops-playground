@@ -1,10 +1,10 @@
 replicaCount: 2
 
+# Replace the placeholder here with you account ID
 image:
-  repository: PLACEHOLDER.dkr.ecr.us-east-1.amazonaws.com/playground/flask-app
+  repository: PLACEHOLDER.dkr.ecr.us-east-1.amazonaws.com/playground/flask-app 
   tag: "latest"
 
-# Additional environment variables (optional)
 env: 
   - name: POD_NAME
     valueFrom:
