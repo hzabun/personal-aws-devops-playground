@@ -1,3 +1,32 @@
+## 📅 June 26, 2025
+
+#### Done
+- [Infra] Added launch template with increased HTTP hop limit to 2
+  - Can now query EC2 instance ID from within a pod
+- [DevOps] Created helm chart to deploy flask app
+  - Can now run `helm install` and set image repository to install the flask app
+- [Docs] Updated todo.md and roadmap
+  - EKS deployment is now done, except for the readme instructions
+
+#### Learned
+- When creating a Kubernetes NodePort service it exposes the same port on every node in the cluster
+  - Service (and underlying pod) can be accessed via any node in the cluster
+  - Only the port has to stay the same
+- Pods (and containers) run a separate network namespace than the host (e.g. EC2 instances)
+  - When sending a request from within a container to the IMDS it first has to hop to the host namespace
+  - Then it has to hop to the IMDS service
+  - Hence hop limit of 2 is needed, as opposed to the default of 1
+
+#### Blockers / Questions
+- Pondered adding an application load balancer
+  - Requires quite a lot of extra resources and permissions
+  - Easier (and less error-prone) via terraform EKS module
+  - Will skip for now, but revisit in next projects
+
+#### Next steps
+- Write instructions for how to deploy the EKS cluster
+- Take first notes on how to set up CI/CD
+
 ## 📅 June 25, 2025
 
 #### Done
