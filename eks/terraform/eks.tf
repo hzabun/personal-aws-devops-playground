@@ -54,11 +54,22 @@ resource "aws_eks_node_group" "eks_nodes" {
     min_size     = 1
   }
 
-  instance_types = ["t3.medium"]
+  launch_template {
+    name    = aws_launch_template.flask_node_launch_configuration.name
+    version = aws_launch_template.flask_node_launch_configuration.latest_version
+  }
 
   depends_on = [
     aws_iam_role_policy_attachment.flask_node_EKS_worker_policy_attachment,
     aws_iam_role_policy_attachment.flask_node_EKS_CNI_policy_attachment,
     aws_iam_role_policy_attachment.flask_node_ECR_pull_policy_attachment,
   ]
+}
+
+resource "aws_launch_template" "flask_node_launch_configuration" {
+  name          = "flask-node-launch-configuration"
+  instance_type = "t3.medium"
+  metadata_options {
+    http_put_response_hop_limit = 2
+  }
 }
