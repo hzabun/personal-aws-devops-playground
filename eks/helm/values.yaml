@@ -1,0 +1,28 @@
+replicaCount: 2
+
+image:
+  repository: PLACEHOLDER.dkr.ecr.us-east-1.amazonaws.com/playground/flask-app
+  tag: "latest"
+
+# Additional environment variables (optional)
+env: 
+  - name: POD_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: metadata.name
+  - name: POD_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
+  - name: NODE_NAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  - name: NODE_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.hostIP
+
+
+# Resource limits (optional)
+resources: {}
