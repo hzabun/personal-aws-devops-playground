@@ -1,4 +1,3 @@
-output "allowed_instance_types" {
-  description = "List of EC2 instance types allowed for Karpenter provisioning"
-  value       = var.allowed_instance_types
+output "jump_host_IP" {
+  value = aws_instance.jump_host.public_ip
 }
