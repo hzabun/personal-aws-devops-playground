@@ -1,4 +1,4 @@
-output "jump_host_IP" {
+output "jump_host_ip" {
   value = aws_instance.jump_host.public_ip
 }
 
