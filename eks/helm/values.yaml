@@ -26,3 +26,6 @@ env:
 
 # Resource limits (optional)
 resources: {}
+
+service:
+  nodePort: 30080
