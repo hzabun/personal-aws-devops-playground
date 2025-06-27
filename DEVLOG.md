@@ -1,3 +1,28 @@
+## 📅 June 27, 2025
+
+#### Done
+- [DevOps] Added NodePort service to helm chart
+  - Installing chart now also exposes pods via NodePort
+- [Infra] Added jump host to terraform configuration in public subnets
+  - No ALB planned for the EKS cluster, so a jump host can be used to access the NodePort service
+- [Infra] Added security groups to launch template for EKS nodes
+  - Allows jump host to connect to the EKS nodes via port exposed by the NodePort service
+- [Refactor] Renamed jump host IP output variable to lowercase letter for better readability
+- [Docs] Updated readme with instructions on how to deploy the EKS cluster
+
+#### Learned
+- Interesting behaviour when assigning a launch template to EKS node group
+  - If security groups are not specified in the launch template EKS automatically creates the necessary ones
+  - If at least one security group is specified, EKS doesn't add any => all required ones must be specified manually
+- Noticed this when adding a security group which allows the jump host to connect to the nodes via a specific port
+  - Nodes were unable to be registered with the EKS cluster, as the necessary ingress/egress blocks were missing
+
+#### Blockers / Questions
+- None today
+
+#### Next steps
+- EKS deployment done, now continuing with CI/CD
+
 ## 📅 June 26, 2025
 
 #### Done
