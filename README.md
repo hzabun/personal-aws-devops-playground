@@ -44,14 +44,48 @@ My personal project to improve my AWS DevOps tools skills. Main focus lies on ru
   - Or enter it during `terraform apply` later
 
 #### Provision resources
+- From the project root run `./eks/docker/build-and-push-image.sh`
+  - Builds and pushes the image to ECR
+  - Make sure the shell script file is executable via `chmod +x`
 - From the `/ec2-ansible/terraform/` folder run `terraform apply`
   - Provisions the whole infrastructure, including the ECS service and an ALB
 - Copy the ALB DNS output from Terraform and either open it in a browser or run a `curl` command
   - Repeat this to see different task IDs confirming that load balancing is working
 
 ### EKS deployment
-- TODO
+#### Set up secrets
+- Create an SSH key pair and add it to the folder `/eks/ssh-keys/`
+  - Will be used to SSH into the EC2 jump host
+- Create file `secrets.env` in the folder `/config/` and add your AWS account ID there
+  - Format should be `ACCOUNT_ID="123456"`
+  - Will be used on your local machine to login to your ECR and push the flask app image
+- Update image repository in the Helm values
+  - Values are located at `/eks/helm/values.yaml`
+  - Replace the placeholder with your account ID
+- (optional) Add the name of your IAM user to the `terraform.tfars` file
+  - IAM user will be authorized to access the cluster via access entry
 
+#### Provision resources
+- From the project root run `./eks/docker/build-and-push-image.sh`
+  - Builds and pushes the image to ECR
+  - Make sure the shell script file is executable via `chmod +x`
+- From the `/eks/terraform/` folder run `terraform apply`
+  - Provisions the whole infrastructure, including the ECS cluster, access entries and node groups
+
+#### Deploy app
+- Update local kubeconfig
+  - Run `aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>`
+  - Enables interacting with the EKS cluster via `kubectl`
+- Deploy helm chart
+  - From project source, run `helm install my-flask-app ./eks/helm/`
+
+#### Access service
+- SSH into jump host using SSH keys created in the previous steps
+  - Public IP is displayed by terraform outputs after `terraform apply`
+- Run curl to one of the EC2 instances in the EKS node group
+  - Private IP of one of the instances is displayed by terraform outputs
+  - Use port `30080`, as that's the NodePort
+- You should now see the flask app message with pod and node details
 
 ## Roadmap
 - [x] Dockerized Flask App
