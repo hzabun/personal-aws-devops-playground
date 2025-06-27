@@ -171,6 +171,18 @@ resource "aws_security_group" "flask_eks_cluster_sg" {
   }
 }
 
+resource "aws_security_group" "EKS_node_allow_curl_to_k8s_service" {
+  name_prefix = "eks-node-http-"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 30080
+    to_port     = 30080
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+}
+
 resource "aws_security_group" "jump_host_sg" {
   name_prefix = "jump-host-sg"
   vpc_id      = aws_vpc.main.id

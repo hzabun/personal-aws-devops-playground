@@ -72,4 +72,24 @@ resource "aws_launch_template" "flask_node_launch_configuration" {
   metadata_options {
     http_put_response_hop_limit = 2
   }
+
+  vpc_security_group_ids = [aws_security_group.EKS_node_allow_curl_to_k8s_service.id, aws_eks_cluster.flask_cluster.vpc_config[0].cluster_security_group_id]
+}
+
+data "aws_instances" "node_group_instances" {
+  filter {
+    name   = "tag:kubernetes.io/cluster/${aws_eks_cluster.flask_cluster.name}"
+    values = ["owned"]
+  }
+
+  filter {
+    name   = "instance-state-name"
+    values = ["running"]
+  }
+
+  depends_on = [aws_eks_node_group.eks_nodes]
+}
+
+data "aws_instance" "first_node" {
+  instance_id = data.aws_instances.node_group_instances.ids[0]
 }
