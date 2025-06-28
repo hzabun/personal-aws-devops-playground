@@ -1,3 +1,18 @@
+## 📅 June 28, 2025
+
+#### Done
+- [DevOps] Added basic GitHub actions workflow
+  - Whole file in comments for now as it's not a valid configuration yet
+
+#### Learned
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+- Nothing today
+
+#### Next steps
+- Expand GitHub actions workflow to make it a valid configuration
+
 ## 📅 June 27, 2025
 
 #### Done
