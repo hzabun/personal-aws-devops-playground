@@ -1,0 +1,11 @@
+# name: ECS CI/CD
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# env:
+#   AWS_REGION: us-east-1
+#   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+#   IMAGE_TAG: latest
