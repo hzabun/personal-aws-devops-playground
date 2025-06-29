@@ -26,22 +26,22 @@ managed_node_private_ips=("${all_private_ips[@]:1}")
 
 # Create file containing managed nodes
 tmp_private_ip_file=$(mktemp)
-printf "%s\n" "${managed_node_private_ips[@]}" | sed 's/\r//' > "$tmp_private_ip_file"
+printf "%s\n" "${managed_node_private_ips[@]}" | sed 's/\r//' >"$tmp_private_ip_file"
 echo "Temp private IP file created successfully."
 
 # Create Ansible inventory file
 tmp_ansible_inventory_file=$(mktemp)
-echo "[myflask]" > "$tmp_ansible_inventory_file"
+echo "[myflask]" >"$tmp_ansible_inventory_file"
 
 # Add each managed node private IP to Ansible inventory file
 for ip in "${managed_node_private_ips[@]}"; do
-    echo "$ip" >> "$tmp_ansible_inventory_file"
+  echo "$ip" >>"$tmp_ansible_inventory_file"
 done
 echo "Temp ansible inventory.ini file created successfully."
 
 # Create ansible.cfg file
 tmp_ansible_cfg_file=$(mktemp)
-cat > "$tmp_ansible_cfg_file" <<EOF
+cat >"$tmp_ansible_cfg_file" <<EOF
 [defaults]
 inventory = ~/myinventory.ini
 private_key_file = ~/.ssh/$(basename "$keypair_path")

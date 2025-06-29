@@ -2,10 +2,10 @@ replicaCount: 2
 
 # Replace the placeholder here with you account ID
 image:
-  repository: PLACEHOLDER.dkr.ecr.us-east-1.amazonaws.com/playground/flask-app 
+  repository: PLACEHOLDER.dkr.ecr.us-east-1.amazonaws.com/playground/flask-app
   tag: "latest"
 
-env: 
+env:
   - name: POD_NAME
     valueFrom:
       fieldRef:
@@ -22,7 +22,6 @@ env:
     valueFrom:
       fieldRef:
         fieldPath: status.hostIP
-
 
 # Resource limits (optional)
 resources: {}

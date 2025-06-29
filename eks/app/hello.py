@@ -5,6 +5,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+
 def get_instance_id():
     # Try querying the EC2 metadata endpoint
     try:
@@ -12,16 +13,17 @@ def get_instance_id():
         token = requests.put(
             "http://169.254.169.254/latest/api/token",
             headers={"X-aws-ec2-metadata-token-ttl-seconds": "60"},
-            timeout=1
+            timeout=1,
         ).text
         instance_id = requests.get(
             "http://169.254.169.254/latest/meta-data/instance-id",
             headers={"X-aws-ec2-metadata-token": token},
-            timeout=1
+            timeout=1,
         ).text
         return instance_id
     except Exception as e:
         return f"Could not get instance ID: {e}"
+
 
 @app.route("/")
 def hello():

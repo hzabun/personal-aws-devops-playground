@@ -4,15 +4,15 @@ metadata:
   name: flask-app
   labels:
     app: flask
-    release: {{ .Release.Name }}
+    release: { { .Release.Name } }
 spec:
   type: NodePort
   selector:
     app: flask
-    release: {{ .Release.Name }}
+    release: { { .Release.Name } }
   ports:
     - port: 80
       targetPort: 5000
       protocol: TCP
       name: http
-      nodePort: {{ .Values.service.nodePort}}
+      nodePort: { { .Values.service.nodePort } }
