@@ -41,9 +41,8 @@ jobs:
             -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} \
             --push .
 
-      - name: Update ECS service
+      # Stop all running tasks - ECS will start new ones with latest image
+      - name: Force ECS to use new image
         run: |
-          aws ecs update-service \
-            --cluster demo_cluster \
-            --service flask-service \
-            --force-new-deployment
+          aws ecs list-tasks --cluster demo_cluster --service-name flask-service --query 'taskArns[]' --output text | \
+          xargs -I {} aws ecs stop-task --cluster demo_cluster --task {}
