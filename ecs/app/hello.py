@@ -17,14 +17,25 @@ def get_task_id():
     except Exception as e:
         return f"Error fetching task metadata: {str(e)}"
 
-def get_instance_id():
-    # AWS EC2 instance metadata endpoint for instance ID
+def get_container_info():
+    metadata_uri = os.environ.get("ECS_CONTAINER_METADATA_URI_V4")
+    if not metadata_uri:
+        return "Metadata URI not found"
     try:
-        response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=3)
+        response = requests.get(f"{metadata_uri}/task")
         response.raise_for_status()
-        return response.text
+        metadata = response.json()
+        containers = metadata.get("Containers", [])
+        if not containers:
+            return "No container info found"
+        # Show info for the first container (usually the current one)
+        container = containers[0]
+        name = container.get("Name", "N/A")
+        docker_id = container.get("DockerId", "N/A")
+        image = container.get("Image", "N/A")
+        return f"Name: {name}, Docker ID: {docker_id}, Image: {image}"
     except Exception as e:
-        return f"Error fetching instance ID: {str(e)}"
+        return f"Error fetching container info: {str(e)}"
 
 # Show basic HTML message at root level
 @app.route("/")
