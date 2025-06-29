@@ -8,7 +8,7 @@ on:
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: playground/flask-app
-  IMAGE_TAG: latest
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   deploy:
@@ -41,8 +41,9 @@ jobs:
             -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} \
             --push .
 
-      # Stop all running tasks - ECS will start new ones with latest image
-      - name: Force ECS to use new image
+      - name: Terraform Apply
+        working-directory: ecs/terraform
         run: |
-          aws ecs list-tasks --cluster demo_cluster --service-name flask-service --query 'taskArns[]' --output text | \
-          xargs -I {} aws ecs stop-task --cluster demo_cluster --task {}
+          terraform apply -auto-approve \
+            -var="account_id=${{ secrets.AWS_ACCOUNT_ID }}" \
+            -var="image_tag=${{ env.IMAGE_TAG }}"
