@@ -25,13 +25,13 @@ resource "aws_ecs_cluster_capacity_providers" "flask_cluster_capacity" {
 }
 
 resource "aws_ecs_task_definition" "flask_task_definition" {
-  family       = "flask-app"
-  network_mode = "awsvpc"
+  family             = "flask-app"
+  network_mode       = "awsvpc"
   execution_role_arn = aws_iam_role.demo_ecs_task_execution_role.arn
   container_definitions = jsonencode([
     {
       name      = "flask-app"
-      image     = "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/${var.namespace}/${var.repo}:latest"
+      image     = "${var.account_id}.dkr.ecr.us-east-1.amazonaws.com/${var.namespace}/${var.repo}:${var.image_tag}"
       cpu       = 256
       memory    = 512
       essential = true

@@ -37,3 +37,8 @@ variable "repo" {
   type    = string
   default = "flask-app"
 }
+
+variable "image_tag" {
+  type    = string
+  default = "latest"
+}
