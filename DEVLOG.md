@@ -1,3 +1,30 @@
+## 📅 June 29, 2025
+
+#### Done
+
+- [Fix] Fixed issue with ECS using cached image
+  - CI/CD sometimes uses the cache of an image instead of the last uploaded one
+  - Using a SHA as the tag solved this issue
+  - Alternative would be using the runner ID
+- [DevOps] Added remote S3 backend
+  - When provisioning the ECS cluster via terminal, GitHub runner does not have access to the state file
+  - It then tries to create all resources as if they don't exist
+  - Solution was to use a remote backend (S3 based)
+- [App] Changed message in the Flask app to see if CICD is working now
+- [Docs] Updated readme and todo list with ticked off tasks
+
+#### Learned
+
+- GitHub Action workflows need to be available in the default branch before they can be run in other branches
+
+#### Blockers / Questions
+
+- None today
+
+#### Next steps
+
+- Add comments and clean up codebase
+
 ## 📅 June 28, 2025
 
 #### Done
