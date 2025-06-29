@@ -109,4 +109,4 @@ My personal project to improve my AWS DevOps tools skills. Main focus lies on ru
 - [x] Provisioned and set up ECS cluster
 - [x] Provisioned and set up EKS cluster
 - [x] Wrote Helm charts to package the app
-- [ ] Created CI/CD via GitHub Actions
+- [x] Created CI/CD via GitHub Actions

@@ -36,7 +36,7 @@
 
 ### CI/CD via GitHub Actions
 
-- [ ] Set up a GitHub repo for the app
-- [ ] Create GitHub Actions workflow to
+- [x] Set up a GitHub repo for the app
+- [x] Create GitHub Actions workflow to
   - On push: build the Docker image, push to ECR
-  - On success: deploy updated image to EKS (kubectl or Helm)
+  - On success: deploy updated image to ECS
