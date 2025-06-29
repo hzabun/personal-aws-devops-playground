@@ -42,8 +42,8 @@ jobs:
             --push .
 
       - name: Update ECS service
-        uses: aws-actions/amazon-ecs-update-service@v2
-        with:
-          cluster: demo_cluster
-          service: flask-service
-          force-new-deployment: true
+        run: |
+          aws ecs update-service \
+            --cluster demo_cluster \
+            --service flask-service \
+            --force-new-deployment
