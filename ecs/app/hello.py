@@ -41,9 +41,9 @@ def get_container_info():
 @app.route("/")
 def hello_world():
     task_id = get_task_id()
-    instance_id = get_instance_id()
+    container_info = get_container_info()
     return (
         f"<p>Hello, World from my containerized Flask app!</p>"
         f"<p>Task ID: {task_id}</p>"
-        f"<p>EC2 Instance ID: {instance_id}</p>"
+        f"<p>Container Info: {container_info}</p>"
     )
