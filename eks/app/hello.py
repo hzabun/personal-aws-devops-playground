@@ -24,7 +24,7 @@ def get_instance_id():
     except Exception as e:
         return f"Could not get instance ID: {e}"
 
-
+# Print basic HTML messages at root level
 @app.route("/")
 def hello():
     pod_name = os.environ.get("POD_NAME", "unknown")

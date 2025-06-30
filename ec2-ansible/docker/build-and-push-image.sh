@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# load credentials and account ID
+# Load credentials and account ID
 source config/secrets.env
 source config/ecr-repo.env
 

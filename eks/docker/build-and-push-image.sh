@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# load credentials and account ID
+# Load credentials and account ID
 source config/secrets.env
 source config/ecr-repo.env
 
-# login to ECR
+# Login to ECR
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
 
 # Check if ECR repo exists, create if not
