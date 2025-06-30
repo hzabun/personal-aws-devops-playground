@@ -1,3 +1,25 @@
+## 📅 June 30, 2025
+
+#### Done
+
+- [DevOps] Added paths CI/CD to workflow
+  - Triggers pipeline now only when flask app, Dockerfile or dependencies get updated
+- [Docs] Formatted comments in some files for more consistency
+
+#### Learned
+
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+
+- Nothing today
+
+#### Next steps
+
+- Finalize readme
+  - Format and perform spell check
+  - Add architecture diagram for each deployment
+
 ## 📅 June 29, 2025
 
 #### Done
