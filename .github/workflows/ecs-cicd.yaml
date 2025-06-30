@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'ecs/app/**'
+      - 'ecs/docker/Dockerfile'
+      - 'ecs/requirements.txt'
 
 env:
   AWS_REGION: us-east-1
