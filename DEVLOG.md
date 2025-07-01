@@ -1,3 +1,24 @@
+## 📅 July 01, 2025
+
+#### Done
+
+- [Docs] Updated readme instructions
+  - Added ECS with CI/CD section
+  - Rearranged order
+
+#### Learned
+
+- Nothing worth mentioning today
+
+#### Blockers / Questions
+
+- Nothing today
+
+#### Next steps
+
+- None anymore, project is finished
+- Continue with next project
+
 ## 📅 June 30, 2025
 
 #### Done
