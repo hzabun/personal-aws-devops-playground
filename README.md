@@ -61,6 +61,8 @@ Each deployment is isolated in its own folder and deploys the same flask app in 
 - Send a HTTP GET request to the managed nodes
   - Use curl command `curl <managed-node-ip>:5000`
 
+---
+
 ### ECS deployment (without CI/CD)
 
 #### Set up secrets
@@ -95,6 +97,8 @@ Each deployment is isolated in its own folder and deploys the same flask app in 
   - Either open the URL in a browser or run a `curl <alb-url>` command
 - Resend the requests to see different task IDs confirming that load balancing is working
 
+---
+
 ### ECS deployment (with CI/CD)
 
 #### Basic setup
@@ -115,6 +119,8 @@ Each deployment is isolated in its own folder and deploys the same flask app in 
 #### Query flask app
 
 - Same as above, send a HTTP get request to the ECS service via the ALB DNS
+
+---
 
 ### EKS deployment
 
